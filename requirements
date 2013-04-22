@@ -1,0 +1,15 @@
+# Requirements for miketheprogrammer.com
+
+#django
+#celery
+django-celery
+django-extensions
+django-memcache-status
+django-mobile
+gunicorn
+mysql-python
+nodeenv
+pil
+python-memcached
+simplejson
+mock
