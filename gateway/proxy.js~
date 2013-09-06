@@ -1,0 +1,46 @@
+var seaport = require('seaport');
+var server = seaport.createServer()
+server.listen(9091);
+
+var bouncy = require('bouncy');
+
+var http = require('http')
+var httpProxy = require('http-proxy')
+
+httpProxy.createServer(function ( req, res, proxy ) {
+    var domains = (req.headers.host || '').split('.');
+    console.log(req.headers.host);
+    var service = ({
+        singlepad : {
+	    stable:'singlepad@0.1.x'
+	},
+        codeshare : {
+	    stable: 'codeshare@0.1.x'
+	}
+    }[domains[0]][domains[1] || 'stable'] || 'codeshare@0.1.x');
+
+    var ps = server.query(service);
+
+    if (ps.length === 0) {
+        //var res = bounce.respond();
+        res.end('service not available\n' + JSON.stringify(ps));
+    }
+    else {
+	console.log(ps);
+	var target = ps[Math.floor(Math.random() * ps.length)]
+	proxy.proxyRequest(req, res, {
+	    port: target.port,
+	    host: target.host
+	})
+    }
+}).listen(9090);
+/*
+var shoe = require('shoe')
+
+var sock = shoe(function ( stream ) {
+    console.log("incoming socket")
+    
+})
+
+sock.install(server, '/stream')
+*/

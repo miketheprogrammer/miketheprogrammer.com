@@ -1,0 +1,120 @@
+var RText     = require('r-edit')
+var reconnect = require('reconnect')
+var reloader  = require('client-reloader')
+var widget    = require('r-edit/widget')
+var MuxDemux = require('mux-demux')
+var rText = RTEXT = RText()
+var rConsole = RText()
+var shoe = require('./shoe-browser')
+var inject = require('reconnect/inject');
+require('codemirror');
+require('codemirror/mode/javascript/javascript')
+
+var mdm = reconnect(function(stream) {
+    mdm = shoe(stream);
+    mdm.on('connection', function(){
+    })
+
+    var code = mdm.createStream('createStream~code')
+    var cconsole = mdm.createStream('createStream~console')
+    code.pipe(rText.createStream()).pipe(code)
+    cconsole.pipe(rConsole.createStream()).pipe(cconsole)
+
+    //using the default template...
+    widget = rText.widget()
+    widget.setAttribute('id', 'code')
+
+    var cwidget = rConsole.widget()
+    cwidget.setAttribute('id','console')
+
+    var h3 = document.createElement('h3')
+    h3.appendChild(document.createTextNode('Code Editor:'))
+    document.body.appendChild(h3);
+    document.body.appendChild(widget)
+    var button = document.createElement('button')
+    button.appendChild(document.createTextNode('Evaluate'))
+    button.setAttribute('onclick', 'window.xeval()')
+    document.body.appendChild(button);
+    document.body.appendChild(document.createElement('br'))
+    var h3 = document.createElement('h3')
+    h3.appendChild(document.createTextNode('Console:'))
+    document.body.appendChild(h3);
+    document.body.appendChild(cwidget)
+
+    var editor = CodeMirror.fromTextArea(widget, {
+	lineNumbers: true,
+	mode: "text/javascript",
+	gutters: ["CodeMirror-lint-markers"],
+	lintWith: CodeMirror.jsonValidator,
+	viewportMargin: Infinity
+    });
+
+    var econsole = CodeMirror.fromTextArea(cwidget, {
+	lineNumbers: true,
+	mode: "text/javascript",
+	gutters: ["CodeMirror-lint-markers"],
+	lintWith: CodeMirror.jsonValidator,
+	viewportMargin: Infinity
+    });
+
+    editor.on('change', function(cm, change) {
+	rText.text(editor.doc.getValue())
+	//xeval();
+    })
+    rText.on('_update', function ( value ) {
+    })
+    rText.on('update', function ( key, value, source ) {
+	if ( source !== this.id ) {
+	    var curs = editor.doc.getCursor()
+	    editor.doc.setValue(this.toJSON().join(''))
+	    editor.doc.setCursor(curs)
+	}
+    })
+
+
+    var econsole = CodeMirror.fromTextArea(cwidget, {
+	lineNumbers: true,
+	mode: "text/javascript",
+	gutters: ["CodeMirror-lint-markers"],
+	lintWith: CodeMirror.jsonValidator,
+	viewportMargin: Infinity,
+	readOnly: true
+    });
+
+    econsole.on('change', function(cm, change) {
+	rConsole.text(econsole.doc.getValue())
+    })
+    rConsole.on('_update', function ( value ) {
+    })
+    rConsole.on('update', function ( key, value, source ) {
+	if ( source !== this.id ) {
+	    var curs = econsole.doc.getCursor()
+	    econsole.doc.setValue(this.toJSON().join(''))
+	    econsole.doc.setCursor(curs)
+	}
+    })
+    window.editor = editor;
+    window.econsole = econsole;
+
+}).connect('/stream')
+
+function xeval() {
+    try {
+	rConsole.text('')
+	eval(rText.text())
+    } catch ( err ) {
+	window.console.log(err);
+	window.console.log(err.stack);
+    }
+}
+window.xeval = xeval;
+var log = window.console.log;
+
+window.console.log = function() {
+    var args = Array.prototype.slice.call(arguments);
+    var str = args.join(' ');
+    var orig = rConsole.text();
+    if (orig != '')
+	rConsole.text(orig+'\n'+str);
+    else rConsole.text(str);
+}

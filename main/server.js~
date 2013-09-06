@@ -1,0 +1,29 @@
+var http = require('http')
+var seaport = require('seaport')
+var ports = seaport.connect(9091)
+var port = ports.register('main@0.1.0')
+var mh = require('minnahtml').mh
+var ecstatic = require('ecstatic')(__dirname + '/static')
+
+
+
+http.createServer(function ( req, res ) {
+    if ( req.url.indexOf('static') != -1 ){
+	ecstatic(req, res)
+    } else {
+	res.writeHead(200, {'Content-Type': 'text/html'});
+	var html = new mh.Html()
+	var head = new mh.Head(html)
+	new mh.Title(head).data.content = 'Welcome to MikeTheProgrammer.com'
+	var body = new mh.Body(html)
+	new mh.Heading4(body).data.content = 'Welcome';
+	new mh.Paragraph(body).data.content = ''
+	    + 'Please Click one of the following links to view live'
+	    + 'Demos and applications'
+	    + '<br/><a href=\'http://codeshare.miketheprogrammer.com\'>CodeShare</a> ( Live Collaborative Code Editing Tool )'
+	    + '<br/><a href=\'http://singlepad.miketheprogrammer.com\'>SinglePad</a> ( Live Collaborative Note Pad )'
+
+	res.end(html.generateHtml());
+    }
+    res.end()
+}).listen(port)
