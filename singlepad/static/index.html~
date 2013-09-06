@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html>
+<body>
+<button onclick="createNew()"> Create New Replicatable Note
+</button>
+<br/>
+<script src=/bundle.js></script>
+</body>
+</html>
