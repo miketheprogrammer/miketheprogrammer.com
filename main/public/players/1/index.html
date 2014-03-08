@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link href='http://fonts.googleapis.com/css?family=Duru+Sans' rel='stylesheet' type='text/css'>
+		<link href='css/dancer.css' rel='stylesheet' type='text/css'>
+	</head>
+	<body>
+		<div id="info">
+			<canvas id="fft" height="50" width="256"></canvas>
+
+		</div>
+		<div id="songinfo">
+			<span>Now playing...</span>
+			<h3>Distorted Soul - Onchet Laminim</h3>
+		</div>
+		<div id="loading">Loading . . .</div>
+		<!-- Demo dependencies -->
+		<script src="/assets/lib/Three.js"></script>
+		<script src="/assets/lib/Stats.js"></script>
+		<script src="/assets/lib/Detector.js"></script>
+
+		<!-- Dancer.js -->
+		<script src="/assets/src/dancer.js"></script>
+		<script src="/assets/src/support.js"></script>
+		<script src="/assets/src/kick.js"></script>
+		<script src="/assets/src/adapterWebAudio.js"></script>
+		<script src="/assets/src/adapterMoz.js"></script>
+		<script src="/assets/src/adapterFlash.js"></script>
+		<script src="/assets/lib/fft.js"></script>
+		<script src="/assets/ib/flash_detect.js"></script>
+		<script src="/assets/plugins/dancer.fft.js"></script>
+
+		<!-- Demo stuff -->
+		<script src="js/scene.js"></script>
+		<script src="js/player.js"></script>
+		<script>
+			(function () {
+
+				var fft = document.getElementById( 'fft' ),
+					toggle = document.getElementById( 'togglefft' );
+				fft.style.display = 'block';
+				toggle.addEventListener( 'click', function ( e ) {
+					e.preventDefault();
+					fft.style.display = fft.style.display == 'block' ? 'none' : 'block';
+				}, true );
+
+				// Due to requiring loading message to float above the rest (absolute)
+				// But still wanting it centered;
+				var loading = document.getElementById('loading');
+				loading.style.marginLeft = (( window.outerWidth - 500 ) / 2) + 'px';
+			})();
+		</script>
+	</body>
+</html>

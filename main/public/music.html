@@ -1,0 +1,83 @@
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="/assets/style.css" media="screen" />
+<!--
+<script type="text/javascript" src="http://www.nihilogic.dk/labs/canvas_music_visualization/soundmanager/
+script/soundmanager2.js"></script>
+-->
+    <script src="/assets/lib/Three.js"></script>
+    <script src="/assets/lib/Stats.js"></script>
+    <script src="/assets/lib/Detector.js"></script>
+
+    <!-- Dancer.js -->
+    <script src="/assets/src/dancer.js"></script>
+    <script src="/assets/src/support.js"></script>
+    <script src="/assets/src/kick.js"></script>
+    <script src="/assets/src/adapterWebAudio.js"></script>
+    <script src="/assets/src/adapterMoz.js"></script>
+    <script src="/assets/src/adapterFlash.js"></script>
+    <script src="/assets/lib/fft.js"></script>
+    <script src="/assets/lib/flash_detect.js"></script>
+    <script src="/assets/plugins/dancer.fft.js"></script>
+    
+    <script src="/assets/players/2/js/player.js"></script>
+<script type="text/javascript" src="/assets/bundle.js"></script>
+<script type="text/javascript">
+function write(id, text, time, next) {
+  var header = document.getElementById(id);
+  header.innerHTML = '';
+  var string = text;
+  var length = string.length;
+  var iter = 0;
+  var writer = setInterval(function () {
+    if (iter >= length) {
+      clearInterval(writer);
+      if (next) return next();
+      else return;
+    }
+    header.innerHTML += string[iter];
+    iter += 1;
+  }, time);
+}
+window.onload = function () {
+  window.methods = {};
+  //Setup();
+  write('header', 'Mike The Programmer', 1, function () {
+     async.parallel([
+        write.bind(null, 'home', 'Home', 1)
+      , write.bind(null, 'code', 'Code', 1)
+      , write.bind(null, 'music', 'Music', 1)
+      , write.bind(null, 'about', 'About', 1)
+    ], function() {
+    });
+  });
+}
+
+</script>
+
+</head>
+<body>
+<div class="main">
+<h3 id="header" class="header"></h3>
+<div id="navigation" class="nav">
+  <a href="" id="home" class="button"></a>
+  <a href="" id="code" class="button"></a>
+  <a href="" id="music" class="button"></a>
+  <a href="" id="about" class="button"></a>
+</div>
+</div>
+
+<div id="content" class="content">
+<div id="loading"></div>
+<div class="song_container">
+  <a class="stitle" onclick="Play('abstracthiphop', 'fft')">Distorted Soul - Abstract Hiphop</a>
+  <canvas id="fft" class="fft" height="100" width="100"></canvas>
+</div>
+<div class="song_container">
+  <a class="stitle" onclick="Play('dirty', 'fft')">Distorted Soul - Overdrive ( darkness )</a>
+  <canvas id="fft" class="fft" height="100" width="100"></canvas>
+</div>
+
+</div>
+</body>
+</html>
