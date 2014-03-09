@@ -1,0 +1,45 @@
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="/assets/style.css" media="screen" />
+<script type="text/javascript" src="/assets/bundle.js"></script>
+<script type="text/javascript">
+
+function write(id, text, time, next) {
+  var header = document.getElementById(id);
+  header.innerHTML = '';
+  var string = text;
+  var length = string.length;
+  var iter = 0;
+  var writer = setInterval(function () {
+    if (iter >= length) {
+      clearInterval(writer);
+      if (next) return next();
+      else return;
+    }
+    header.innerHTML += string[iter];
+    iter += 1;
+  }, time);
+}
+window.onload = function () {
+  write('header', 'Mike The Programmer', 30, function () {
+     async.parallel([
+        write.bind(null, 'home', 'Home', 70)
+      , write.bind(null, 'code', 'Code', 70)
+      , write.bind(null, 'music', 'Music', 70)
+      , write.bind(null, 'about', 'About', 70)
+    ]);
+  });
+}
+
+</script>
+</head>
+<body>
+<h3 id="header" class="header"></h1>
+<div id="navigation" class="nav">
+  <a href="/" id="home" class="button"></a>
+  <a href="/code" id="code" class="button"></a>
+  <a href="/music" id="music" class="button"></a>
+  <a href="/about" id="about" class="button"></a>
+</div>
+</body>
+</html>

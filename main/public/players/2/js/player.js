@@ -4,6 +4,7 @@ function Play(file, viz_id) {
   }
   if (window.dancer) {
     window.dancer.pause();
+    delete window.dancer.audioAdapter.context;
     delete window.dancer;
   }
 

@@ -1,45 +1,131 @@
-<html>
-<head>
-<link rel="stylesheet" type="text/css" href="/assets/style.css" media="screen" />
-<script type="text/javascript" src="/assets/bundle.js"></script>
-<script type="text/javascript">
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!--<link rel="shortcut icon" href="../../assets/ico/favicon.ico">-->
 
-function write(id, text, time, next) {
-  var header = document.getElementById(id);
-  header.innerHTML = '';
-  var string = text;
-  var length = string.length;
-  var iter = 0;
-  var writer = setInterval(function () {
-    if (iter >= length) {
-      clearInterval(writer);
-      if (next) return next();
-      else return;
-    }
-    header.innerHTML += string[iter];
-    iter += 1;
-  }, time);
-}
-window.onload = function () {
-  write('header', 'Mike The Programmer', 30, function () {
-     async.parallel([
-        write.bind(null, 'home', 'Home', 70)
-      , write.bind(null, 'code', 'Code', 70)
-      , write.bind(null, 'music', 'Music', 70)
-      , write.bind(null, 'about', 'About', 70)
-    ]);
-  });
-}
+    <title>Mike The Programmer</title>
 
-</script>
-</head>
-<body>
-<h3 id="header" class="header"></h1>
-<div id="navigation" class="nav">
-  <a href="/" id="home" class="button"></a>
-  <a href="/code" id="code" class="button"></a>
-  <a href="/music" id="music" class="button"></a>
-  <a href="/about" id="about" class="button"></a>
-</div>
-</body>
+    <!-- Bootstrap core CSS -->
+    <link href="/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="/assets/index.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <div class="site-wrapper">
+
+      <div class="site-wrapper-inner">
+
+        <div class="cover-container">
+
+          <div class="masthead clearfix">
+            <div class="inner">
+              <h3 class="masthead-brand" style="position:relative"></h3>
+              <ul class="nav masthead-nav navbar-static-top">
+                <li class="active"><a href="#home">Home</a></li>
+                <li><a href="#">Programming</a></li>
+                <li><a href="#music">Music</a></li>
+                <li><a href="#parkour">parkour</a></li>
+              </ul>
+            </div>
+          </div>
+<section id="home" class="container space space-top">
+  <div id="scroll-to" class="row">
+    <div class="col-xs-6 col-xs-offset-1">
+          <div class="inner cover">
+            <h1 class="cover-heading">I'm Mike...</h1>
+            <p class="lead"><a href="#">Programmer&nbsp;&nbsp;</a><a href="#music">DeeJay&nbsp;&nbsp;Producer&nbsp;&nbsp;</a><a href="#parkour">Traceuer&nbsp;&nbsp;Freerunner</a></p>
+            <p class="lead">
+              <!--<a href="#" class="btn btn-lg btn-default">Learn more</a>-->
+            </p>
+          </div>
+          </div>
+          </div>
+</section>
+<section id="music" class="container space space-top">
+  <div id="scroll-to" class="row">
+    <div class="col-xs-6 col-xs-offset-1">
+          <div class="inner cover">
+            <h1 class="cover-heading">I'm Mike...</h1>
+
+            <p class="lead">Here's my music.</p>
+            <div>
+            <p class="lead">
+            Distorted Soul - Dirty
+            <audio controls>
+              <source src="/assets/music/distortedsoul+distortedsouldirty.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+            </audio>
+
+            </p>
+            <p class="lead">
+            Distorted Soul - Dark Path
+            <audio controls>
+              <source src="/assets/music/distortedsoul+distortedsouldarkpsytrance.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+            </audio>
+
+            </p>
+            <p class="lead">
+            Distorted Soul - Are You Ready (Dub Trip Mix)
+            <audio controls>
+              <source src="/assets/music/distortedsoul+distortedsoulexperimentaldirtyhousebeat.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+            </audio>
+
+            </p>
+            <div>
+          </div>
+          </div>
+          </div>
+          </section>
+<section id="parkour" class="container space space-top">
+  <div id="scroll-to" class="row">
+    <div class="col-xs-6 col-xs-offset-1">
+          <div class="inner cover">
+            <h1 class="cover-heading">I'm Mike...</h1>
+            <p class="lead"><a href="#">I absolutely love to run. Parkour and Freerunning (to a lesser extent are my favorite past times after programming and music.</p>
+            <div>
+            <img style="width:75%; height:75%; padding-bottom:8%" src="/assets/images/fence_jump.jpg"></img>
+            <br/>
+            <img style="width:75%; height:75%; padding-bottom:8%" src="/assets/images/ice_jump.jpg"></img>
+            
+            </div>
+          </div>
+          </div>
+          </div>
+</section>
+
+          <div class="mastfoot">
+            <div class="inner">
+
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="/assets/js/jquery.scrollto.js"></script>
+    <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/assets/bootstrap/docs.min.js"></script>
+  </body>
 </html>
