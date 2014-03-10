@@ -17,7 +17,7 @@ app.get('/', function (req, res) {
     files.forEach(function(v) {
         var name = v.split('distortedsoul+distortedsoul')[1].split('.mp3')[0];
         console.log(name);
-        writable.write(format(fs.readFileSync('./public/music.tmpl').toString('utf8'),'Distorted Soul - ' + name, v));
+        //writable.write(format(fs.readFileSync('./public/music.tmpl').toString('utf8'),'Distorted Soul - ' + name, v));
     });
     writable.end(null);
     var readable = fs.createReadStream(__dirname+'/public/index.html');
