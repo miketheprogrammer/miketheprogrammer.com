@@ -3,14 +3,14 @@
   var
     //AUDIO_FILE        = '../songs/zircon_devils_spirit',
     AUDIO_FILE        = '/assets/music/distortedsoul+distortedsoulonchetlaminim',
-    PARTICLE_COUNT    = 250,
-    MAX_PARTICLE_SIZE = 12,
-    MIN_PARTICLE_SIZE = 2,
-    GROWTH_RATE       = 5,
+    PARTICLE_COUNT    = 800,
+    MAX_PARTICLE_SIZE = 2,
+    MIN_PARTICLE_SIZE = .01,
+    GROWTH_RATE       = 1.2,
     DECAY_RATE        = 0.5,
 
     BEAM_RATE         = 0.5,
-    BEAM_COUNT        = 20,
+    BEAM_COUNT        = 25,
 
     GROWTH_VECTOR = new THREE.Vector3( GROWTH_RATE, GROWTH_RATE, GROWTH_RATE ),
     DECAY_VECTOR  = new THREE.Vector3( DECAY_RATE, DECAY_RATE, DECAY_RATE ),

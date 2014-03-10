@@ -2,7 +2,10 @@
  * Globals
  */
 .space {
-  padding-bottom: 42%;
+  padding-bottom: 70%;
+}
+.space-xl {
+  padding-bottom: 80%;
 }
 .spacex2 {
   padding-bottom: 400px;

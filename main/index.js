@@ -31,7 +31,7 @@ app.get('/', function (req, res) {
 
 app.get('/music', function (req, res) {
     res.setHeader('Content-Type', 'text/html');
-    fs.createReadStream(__dirname+'/public/music.html').pipe(res);
+    fs.createReadStream(__dirname+'/public/smtest.html').pipe(res);
 })
 
 app.get('/soundmanager2.swf', function (req,res) {

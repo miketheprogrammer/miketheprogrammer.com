@@ -1,0 +1,32 @@
+<script src="/assets/soundmanager2/script/soundmanager2.js"></script>
+<script>
+soundManager.setup({
+  // where to find flash audio SWFs, as needed
+  url: '/assets/soundmanager2/swf',
+  flashVersion: 9,
+  preferFlash: true,
+  onready: function() {
+    var mySoundObject = soundManager.createSound({
+     // optional id, for getSoundById() look-ups etc. If omitted, an id will be generated.
+     id: 'mySound',
+     url: '/assets/music/distortedsoul+distortedsouldirty.mp3',
+     // optional sound parameters here, see Sound Properties for full list
+     volume: 50,
+     autoPlay: false,
+     whileloading: function() { console.log(this.id + ' is loading'); },
+     whileplaying: function() {
+        console.log(this.waveformData);
+     }
+    });
+  }
+});
+soundManager.flash9Options = {
+  isMovieStar: null,      // "MovieStar" MPEG4 audio mode. Null (default) = auto detect MP4, AAC etc. based on URL. true = force on, ignore URL
+  usePeakData: true,     // enable left/right channel peak (level) data
+  useWaveformData: true, // enable sound spectrum (raw waveform data) - WARNING: May set CPUs on fire.
+  useEQData: true,       // enable sound EQ (frequency spectrum data) - WARNING: Also CPU-intensive.
+  onbufferchange: null,   // callback for "isBuffering" property change
+  ondataerror: null   // callback for waveform/eq data access error (flash playing audio in other tabs/domains)
+}
+
+</script>
