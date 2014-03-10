@@ -131,7 +131,12 @@ body {
  * Cover
  */
 
+.offset_left {
+right: 6%;
+position: relative;
+}
 .cover {
+
   padding: 0 20px;
 }
 .cover .btn-lg {
