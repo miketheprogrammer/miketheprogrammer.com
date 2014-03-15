@@ -58,6 +58,7 @@ body {
     position: absolute;
     background-color: #111;
     padding: 10px;
+    top:500px;
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     border-radius: 10px;

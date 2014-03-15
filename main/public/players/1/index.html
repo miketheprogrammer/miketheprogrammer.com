@@ -2,6 +2,7 @@
 <html>
 	<head>
 		<link href='http://fonts.googleapis.com/css?family=Duru+Sans' rel='stylesheet' type='text/css'>
+		<link href='css/style.css' rel='stylesheet' type='text/css'>
 		<link href='css/dancer.css' rel='stylesheet' type='text/css'>
 	</head>
 	<body>
@@ -13,7 +14,7 @@
 			<span>Now playing...</span>
 			<h3>Distorted Soul - Onchet Laminim</h3>
 		</div>
-		<div id="loading">Loading . . .</div>
+		<div id="loading" class="cvs-container">Loading . . .</div>
 		<div id="cvs-container" class="cvs-container"></div>
 		<!-- Demo dependencies -->
 		<script src="/assets/lib/Three.js"></script>
@@ -28,7 +29,7 @@
 		<script src="/assets/src/adapterMoz.js"></script>
 		<script src="/assets/src/adapterFlash.js"></script>
 		<script src="/assets/lib/fft.js"></script>
-		<script src="/assets/ib/flash_detect.js"></script>
+		<script src="/assets/lib/flash_detect.js"></script>
 		<script src="/assets/plugins/dancer.fft.js"></script>
 
 		<!-- Demo stuff -->
@@ -40,10 +41,10 @@
 				var fft = document.getElementById( 'fft' ),
 					toggle = document.getElementById( 'togglefft' );
 				fft.style.display = 'block';
-				toggle.addEventListener( 'click', function ( e ) {
+				/*toggle.addEventListener( 'click', function ( e ) {
 					e.preventDefault();
 					fft.style.display = fft.style.display == 'block' ? 'none' : 'block';
-				}, true );
+				}, true );*/
 
 				// Due to requiring loading message to float above the rest (absolute)
 				// But still wanting it centered;

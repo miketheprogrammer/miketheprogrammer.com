@@ -30,10 +30,10 @@
 
     renderer = new THREE.CanvasRenderer();
     var aspect = window.innerWidth / window.innerHeight;
-    renderer.setSize( window.innerWidth / 3, window.innerHeight / 3);
+    renderer.setSize( window.innerWidth / 2.5, window.innerHeight / 2.5);
     container.style.width = window.innerWidth / 3;
     container.style.height = window.innerHeight / 3;
-    
+
     container.appendChild( renderer.domElement );
 
     document.addEventListener( 'mousemove', onDocumentMouseMove, false );

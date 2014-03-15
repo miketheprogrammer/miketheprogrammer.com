@@ -6,7 +6,10 @@
   "dependencies": {
     "ecstatic": "~0.4.8",
     "minnahtml": "~0.3.7",
-    "seaport": "~1.5.3"
+    "seaport": "~1.5.3",
+    "throttle": "~1.0.3",
+    "lame": "~1.0.3",
+    "node-ffprobe": "~1.2.2"
   },
   "devDependencies": {},
   "scripts": {

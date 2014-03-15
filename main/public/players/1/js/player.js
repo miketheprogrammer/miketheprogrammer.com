@@ -2,9 +2,9 @@
 
   var
     //AUDIO_FILE        = '../songs/zircon_devils_spirit',
-    AUDIO_FILE        = '/assets/music/distortedsoul+distortedsoulonchetlaminim',
-    PARTICLE_COUNT    = 800,
-    MAX_PARTICLE_SIZE = 2,
+    AUDIO_FILE        = '/assets/music/distortedsoul+distortedsouldirty',
+    PARTICLE_COUNT    = 4000,
+    MAX_PARTICLE_SIZE = 50,
     MIN_PARTICLE_SIZE = .01,
     GROWTH_RATE       = 1.2,
     DECAY_RATE        = 0.5,
@@ -29,14 +29,22 @@
   });
 
   dancer = new Dancer();
+
+  var range_1 = range(0, 1200, 10);
   kick = dancer.createKick({
-    onKick: function () {
+    onKick: function (mag) {
       var i;
       if ( particles[ 0 ].scale.x > MAX_PARTICLE_SIZE ) {
-        decay();
+        decay(mag);
       } else {
+        var r = range_1(mag);
         for ( i = PARTICLE_COUNT; i--; ) {
+          particles[i].position.x = clamp1k(particles[i].position.x * randomVelocity()) * Math.sin(Math.random() * 100);
+          particles[i].position.y = clamp(-1200,r+1,particles[i].position.y * randomVelocity());
+          particles[i].position.z = clamp1k(particles[i].position.z * randomVelocity()) * Math.atan(Math.random() * 100);
           particles[ i ].scale.addSelf( GROWTH_VECTOR );
+          particles[i].position.normalize();
+          particles[i].position.multiplyScalar( Math.random() * 10 + 600 );
         }
       }
       if ( !beamGroup.children[ 0 ].visible ) {
@@ -47,6 +55,21 @@
     },
     offKick: decay
   });
+  function range(start, end, inc) {
+    var current = start;
+    return function (magnifier) {
+    var modifier = Math.floor(Math.random() * 100000);
+    var direction = modifier & 1 === 1 ? -1 : 1;
+      if (magnifier)
+        current += (inc * (magnifier * 10) * direction);
+      else current += inc;
+      //console.log(current);
+      if (current > end) {
+        current = start;
+      }
+      return current;
+    }
+  }
 
   dancer.onceAt( 0, function () {
     kick.on();
@@ -78,6 +101,8 @@
       particle.position.y = Math.random() * 2000 - 1000;
       particle.position.z = Math.random() * 2000 - 1000;
       particle.scale.x = particle.scale.y = Math.random() * 10 + 5;
+      particle.position.normalize();
+      particle.position.multiplyScalar( Math.random() * 10 + 600 );
       group.add( particle );
     }
     scene.add( group );
@@ -103,17 +128,22 @@
     }
   }
 
-  function decay () {
+  function decay (mag) {
     if ( beamGroup.children[ 0 ].visible ) {
       for ( i = BEAM_COUNT; i--; ) {
         beamGroup.children[ i ].visible = false;
       }
     }
-
+    var r = range_1(mag);
     for ( var i = PARTICLE_COUNT; i--; ) {
+          particles[i].position.x = clamp1k(particles[i].position.x * randomVelocity()) * Math.sin(Math.random() * 100);
+          particles[i].position.y = clamp(-1200, r+1 ,particles[i].position.y * randomVelocity());
+          particles[i].position.z = clamp1k(particles[i].position.z * randomVelocity()) * Math.atan(Math.random() * 100);
       if ( particles[i].scale.x - DECAY_RATE > MIN_PARTICLE_SIZE ) {
         particles[ i ].scale.subSelf( DECAY_VECTOR );
       }
+          particles[i].position.normalize();
+          particles[i].position.multiplyScalar( Math.random() * 10 + 600 );
     }
   }
 
@@ -139,7 +169,21 @@
       vertexColor: 0xFFFFFF
     });
   }
-
+  function randomVelocity() {
+    var modifier = Math.floor(Math.random() * 100000);
+    var direction = modifier & 1 === 1 ? -1 : 1;
+    return (Math.random() * 10) * direction;
+  }
+  function clamp(min, max, value) {
+    if (value < min) {
+      return min;
+    }
+    if (value > max) {
+      return max;
+    }
+    return value;
+  }
+  clamp1k = clamp.bind(null, -500, 500);
   function loaded () {
     var
       loading = document.getElementById( 'loading' ),
